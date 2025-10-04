@@ -1,102 +1,168 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import Link from 'next/link';
+import { useAuth } from '@clerk/nextjs';
+import { ArrowRightIcon, DocumentIcon, UserGroupIcon, ChartBarIcon } from '@heroicons/react/24/outline';
+
+export default function HomePage() {
+  const { isSignedIn } = useAuth();
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      {/* Navigation */}
+      <nav className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <DocumentIcon className="h-8 w-8 text-blue-600" />
+              <span className="ml-2 text-xl font-bold text-gray-900">Dynamic Forms</span>
+            </div>
+            <div className="flex items-center space-x-4">
+              {isSignedIn ? (
+                <Link 
+                  href="/dashboard" 
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Dashboard
+                </Link>
+              ) : (
+                <div className="space-x-2">
+                  <Link 
+                    href="/sign-in" 
+                    className="text-gray-600 hover:text-gray-900 px-3 py-2"
+                  >
+                    Sign In
+                  </Link>
+                  <Link 
+                    href="/sign-up" 
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </nav>
+
+      {/* Hero Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center">
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+            Create Dynamic Forms
+            <span className="text-blue-600"> in Minutes</span>
+          </h1>
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            Build flexible, scalable forms for KYC, loans, investments, and more. 
+            With our visual form builder, drag-and-drop interface, and powerful validation engine.
+          </p>
+          
+          <div className="flex justify-center space-x-4">
+            <Link 
+              href={isSignedIn ? "/dashboard" : "/sign-up"}
+              className="inline-flex items-center bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Get Started
+              <ArrowRightIcon className="ml-2 h-5 w-5" />
+            </Link>
+            <Link 
+              href="/forms" 
+              className="inline-flex items-center bg-white text-gray-900 px-8 py-4 rounded-lg text-lg font-semibold border-2 border-gray-300 hover:border-gray-400 transition-colors"
+            >
+              View Public Forms
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Features Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Everything You Need for Dynamic Forms
+          </h2>
+          <p className="text-xl text-gray-600">
+            Powerful features designed for financial services and beyond
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+              <DocumentIcon className="h-6 w-6 text-blue-600" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              Visual Form Builder
+            </h3>
+            <p className="text-gray-600">
+              Drag-and-drop interface with 15+ field types including file uploads, 
+              signatures, ratings, and complex validations.
+            </p>
+          </div>
+
+          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+              <UserGroupIcon className="h-6 w-6 text-green-600" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              Role-Based Access
+            </h3>
+            <p className="text-gray-600">
+              Separate admin and client portals with granular permissions. 
+              Admins create forms, clients submit with draft capabilities.
+            </p>
+          </div>
+
+          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+              <ChartBarIcon className="h-6 w-6 text-purple-600" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              Real-time Notifications
+            </h3>
+            <p className="text-gray-600">
+              Instant email and in-app notifications powered by Celery. 
+              Track submissions, approvals, and form analytics.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="bg-blue-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Ready to streamline your forms?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8">
+              Join hundreds of organizations using our platform
+            </p>
+            <Link 
+              href={isSignedIn ? "/dashboard" : "/sign-up"}
+              className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-50 transition-colors"
+            >
+              Start Building Forms
+              <ArrowRightIcon className="ml-2 h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <DocumentIcon className="h-6 w-6" />
+              <span className="ml-2 font-semibold">Dynamic Forms</span>
+            </div>
+            <p className="text-gray-400">
+              © 2024 Dynamic Forms System. Built with Next.js and Django.
+            </p>
+          </div>
+        </div>
       </footer>
     </div>
   );

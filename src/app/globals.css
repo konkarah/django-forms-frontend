@@ -24,3 +24,13 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+input, textarea, select {
+  color: #222222; /* or use a Tailwind color like text-gray-900 */
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280; /* Tailwind gray-500 for better contrast */
+  opacity: 1;
+}

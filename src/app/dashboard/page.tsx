@@ -46,5 +46,4 @@ export default function DashboardPage() {
   } else {
     return <ClientPortal />;
   }
-  // return <AdminDashboard />;
 }

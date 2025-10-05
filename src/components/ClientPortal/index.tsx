@@ -7,12 +7,17 @@ import { useApiClient } from '@/lib/api';
 import { FormTemplate, FormSubmission } from '@/types';
 import FormRenderer from './FormRenderer';
 import { formatDate } from '@/lib/utils';
+import { useClerk } from '@clerk/nextjs';
 
 export default function ClientPortal() {
   const [selectedForm, setSelectedForm] = useState<FormTemplate | null>(null);
   const [editingSubmission, setEditingSubmission] = useState<FormSubmission | null>(null);
   
   const apiClient = useApiClient();
+  const { signOut } = useClerk();
+      const handleSignOut = async () => {
+      await signOut();
+    };
 
   const { data: publicForms = [] } = useQuery({
     queryKey: ['public-forms'],
@@ -54,6 +59,14 @@ export default function ClientPortal() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <h1 className="text-3xl font-bold text-gray-900">My Forms</h1>
           <p className="text-gray-600">Submit forms and manage your applications</p>
+        </div>
+        <div className="absolute top-4 right-4">
+          <button
+            onClick={handleSignOut}
+            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+          >
+            Sign Out
+          </button>
         </div>
       </div>
 

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useClerk } from '@clerk/nextjs';
 import { 
   PlusIcon, 
   DocumentIcon, 
@@ -36,6 +37,11 @@ export default function AdminDashboard() {
   const [editingForm, setEditingForm] = useState<FormTemplate | null>(null);
 
   const apiClient = useApiClient();
+   const { signOut } = useClerk();
+
+       const handleSignOut = async () => {
+        await signOut();
+      };
 
   // Fetch data
   const { data: forms = [], refetch: refetchForms } = useQuery({
@@ -408,6 +414,12 @@ export default function AdminDashboard() {
               <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
               <p className="text-gray-600">Manage forms, submissions, and notifications</p>
             </div>
+            <button
+              onClick={handleSignOut}
+              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+            >
+              Sign Out
+            </button>
           </div>
         </div>
       </div>
